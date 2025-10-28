@@ -12,7 +12,6 @@ public class ClientAgent extends Agent {
     protected void setup() {
         ui = (DeliveryUI) getArguments()[0];
 
-        
         switch (getLocalName()) {
             case "Client1": position = new Point(400, 280); break;
             case "Client2": position = new Point(480, 100); break;
@@ -20,7 +19,6 @@ public class ClientAgent extends Agent {
             default: position = new Point(400, 280);
         }
 
-        System.out.println(getLocalName() + " ready at " + position);
         ui.addAgent(getLocalName(), position, Color.GREEN);
     }
 

@@ -17,17 +17,11 @@ public class DeliveryAgent extends Agent {
         ui = (DeliveryUI) getArguments()[0];
         ui.addAgent(getLocalName(), position, Color.ORANGE);
 
-        System.out.println(getLocalName() + " waiting for client assignment...");
-
         addBehaviour(new TickerBehaviour(this, 150) {
             protected void onTick() {
-                
                 ACLMessage msg = receive();
                 if (msg != null) {
                     clientTarget = msg.getContent();
-                    System.out.println(getLocalName() + " received delivery target: " + clientTarget);
-
-                    
                     destination = ui.getAgentPosition(clientTarget);
                 }
 
@@ -35,11 +29,7 @@ public class DeliveryAgent extends Agent {
                     moveTowards(destination);
                     ui.updateAgentPosition(getLocalName(), position);
 
-                    
-                    if (position.distance(destination) < 5) {
-                        System.out.println(getLocalName() + " reached " + clientTarget + "!");
-                        stop();
-                    }
+                    if (position.distance(destination) < 5) stop();
                 }
             }
         });
