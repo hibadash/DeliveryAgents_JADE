@@ -15,22 +15,16 @@ public class ManagerAgent extends Agent {
     protected void setup() {
         System.out.println(getLocalName() + " initialized (Manager).");
         ui = (DeliveryUI) getArguments()[0];
-
-      
         ui.addAgent(getLocalName(), new Point(60, 60), Color.BLUE);
 
-        
         addBehaviour(new OneShotBehaviour() {
             public void action() {
                 try {
-                    Thread.sleep(1500); 
+                    Thread.sleep(1500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
-                System.out.println("Manager assigning deliveries...");
-
-                
                 for (int i = 0; i < clients.size(); i++) {
                     String clientName = clients.get(i);
                     String deliveryName = "Delivery" + (i + 1);
@@ -40,7 +34,7 @@ public class ManagerAgent extends Agent {
                     msg.setContent(clientName);
                     send(msg);
 
-                    System.out.println("Assigned " + deliveryName + " to " + clientName);
+                    ui.setDeliveryLink(deliveryName, clientName);
                 }
             }
         });
